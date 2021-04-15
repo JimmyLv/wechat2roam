@@ -8,6 +8,7 @@ const roam = new RoamPrivateApi(
   process.env.ROAM_API_PASSWORD,
   {
     headless: true,
+    args: ["--no-sandbox"],
   }
 );
 
