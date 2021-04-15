@@ -25,8 +25,15 @@ async function onMessage(msg) {
   }
 }
 
+function onEasyScan(qrcode, status) {
+  console.log(
+    `Scan QR Code to login: ${status}\nhttps://wechaty.js.org/qrcode/${encodeURIComponent(
+      qrcode
+    )}`
+  );
+}
 function onSimpleScan(qrcode, status) {
-  console.log('onSimpleScan', status)
+  console.log("onSimpleScan", status);
   if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
     require("qrcode-terminal").generate(qrcode, { small: true }); // show qrcode on console
 
