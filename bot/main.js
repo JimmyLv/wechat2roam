@@ -1,17 +1,6 @@
 const http = require("http");
 const { Wechaty, ScanStatus, log } = require("wechaty");
-const RoamPrivateApi = require("roam-research-private-api");
 const sendToRoam = require('./services/roam')
-
-const roam = new RoamPrivateApi(
-  process.env.ROAM_API_GRAPH,
-  process.env.ROAM_API_EMAIL,
-  process.env.ROAM_API_PASSWORD,
-  {
-    headless: true,
-    args: ["--no-sandbox"],
-  }
-);
 
 let qrcodeURL = "";
 let started = false;
