@@ -3794,10 +3794,9 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-roam-research-private-api@^0.9.3:
+roam-research-private-api@JimmyLv/roam-research-private-api:
   version "0.9.3"
-  resolved "https://registry.npm.taobao.org/roam-research-private-api/download/roam-research-private-api-0.9.3.tgz#bbebb08e19a17226baca29b01178d25595dbde41"
-  integrity sha1-u+uwjhmhcia6yimwEXjSVZXb3kE=
+  resolved "https://codeload.github.com/JimmyLv/roam-research-private-api/tar.gz/a6e7416280cb4577bb05078694a48771c964b508"
   dependencies:
     enml-js "^0.1.3"
     evernote "^2.0.5"
