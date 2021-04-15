@@ -1,13 +1,5 @@
 const http = require("http");
-const { Wechaty } = require("wechaty");
-const ScheduleHandler = require("./handler/scheduleHandler");
-const OpsHandler = require("./handler/opsHandler");
-const RoomNameMatcher = require("./roomNameMatcher");
-
-const roomNameMatcher = new RoomNameMatcher([
-  new ScheduleHandler(),
-  new OpsHandler(),
-]);
+const { Wechaty, log } = require("wechaty");
 
 let qrcodeURL = "";
 let started = false;
@@ -25,8 +17,16 @@ const printURLOnPage = (url) => {
   started = true;
 };
 
+async function onMessage(msg) {
+  log.info("StarterBot", msg.toString());
+
+  if (msg.text() === "ding") {
+    await msg.say("dong");
+  }
+}
+
 export default function start() {
-  Wechaty.instance() // Singleton
+  Wechaty.instance({ name: "wechat2roam-bot" }) // Singleton
     .on("scan", (qrcode, status) => {
       const url = `https://wechaty.js.org/qrcode/${encodeURIComponent(qrcode)}`;
       console.log(`Scan QR Code to login: ${status}\n${url}`);
@@ -34,9 +34,6 @@ export default function start() {
       printURLOnPage(url);
     })
     .on("login", (user) => console.log(`User ${user} logined`))
-    .on("message", async (message) => {
-      const handlers = await roomNameMatcher.match(message);
-      handlers.forEach((h) => h.handle(message));
-    })
+    .on("message", onMessage)
     .start();
 }
