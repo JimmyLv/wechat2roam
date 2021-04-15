@@ -2,6 +2,26 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+1. 获取 Token <http://175.27.139.176/#/login?redirect=%2Forder>
+
+2.
+
+```
+export WECHATY_PUPPET_SERVICE_TOKEN=上一步获得的Token
+```
+
+3.
+
+<https://wechat2roam.vercel.app/api/bot>
+
+or
+
+```
+yarn start
+```
+
+---
+
 First, run the development server:
 
 ```bash
