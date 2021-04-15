@@ -1,6 +1,7 @@
 const http = require("http");
 const { Wechaty, ScanStatus, log } = require("wechaty");
 const RoamPrivateApi = require("roam-research-private-api");
+const sendToRoam = require('./services/roam')
 
 const roam = new RoamPrivateApi(
   process.env.ROAM_API_GRAPH,
@@ -28,24 +29,16 @@ const printURLOnPage = (url) => {
   started = true;
 };
 
-async function onMessage(msg) {
-  log.info("StarterBot", msg.toString());
+async function onMessage(message) {
+  // 自己发给自己，直接保存
+  const talker = message.talker();
+  if (message.self() || talker.name().includes("吕立青@JimmyLv")) {
+    log.info("RoamBot", message.toString());
 
-  const contact = msg.talker();
-  if (contact.name().includes("吕立青@JimmyLv.info")) {
-    log.info("sending to RoamResearch...", msg.text());
-    const dailyNoteUid = roam.dailyNoteUid();
-    const input = `${msg.text()} #WeChat`;
-    await roam.logIn();
-    await roam.createBlock(input, dailyNoteUid);
-    // await roam.close();
-    // await roam.quickCapture('测试一下');
-
-    log.info("sent to RoamResearch...", input);
-    await msg.say("保存成功！");
+    await sendToRoam(message);
   }
-  if (msg.text() === "ding") {
-    await msg.say("dong");
+  if (message.text() === "ding") {
+    await message.say("dong");
   }
 }
 
