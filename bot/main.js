@@ -26,6 +26,7 @@ async function onMessage(msg) {
 }
 
 function onSimpleScan(qrcode, status) {
+  console.log('onSimpleScan', status)
   if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
     require("qrcode-terminal").generate(qrcode, { small: true }); // show qrcode on console
 
@@ -53,9 +54,9 @@ function onScan(qrcode, status) {
   printURLOnPage(url);
 }
 
-export default function start() {
-  Wechaty.instance({ name: "wechat2roam-bot" }) // Singleton
-    .on("scan", onScan)
+export default async function start() {
+  await Wechaty.instance({ name: "wechat2roam-bot" }) // Singleton
+    .on("scan", onSimpleScan)
     .on("login", (user) => console.log(`User ${user} logined`))
     .on("message", onMessage)
     .start();

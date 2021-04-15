@@ -1,7 +1,7 @@
 import start from '../../bot/main'
 
-export default (req, res) => {
+export default async (req, res) => {
   res.statusCode = 200
-  start()
+  await start()
   res.json({ name: process.env.ROAM_API_GRAPH })
 }
